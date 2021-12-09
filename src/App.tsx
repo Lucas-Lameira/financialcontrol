@@ -7,6 +7,7 @@ import {Header} from './components/Header';
 import { Dashboard } from "./components/Dashboard";
 import { NewTransactionModal } from "./components/NewTransactionModal";
 import { useState } from "react";
+import { TransactionsProvider } from "./hooks/useTransactions";
 
 
 createServer({
@@ -70,7 +71,7 @@ export function App() {
     }
 
   return (
-    <div>
+    <TransactionsProvider>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal}/>
       <Dashboard />
 
@@ -80,6 +81,6 @@ export function App() {
       />
      
       <GlobalStyle />
-    </div>
+    </TransactionsProvider>
   );
 }

@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import logo from '../../assets/logo.svg';
 import {Container, Content} from '../Header/styles';
+import logo from '../../assets/logo.svg';
 
 interface HeaderProps {
     onOpenNewTransactionModal: () => void
 }
-
 
 export function Header ({onOpenNewTransactionModal}: HeaderProps) {
     return (
@@ -15,8 +13,6 @@ export function Header ({onOpenNewTransactionModal}: HeaderProps) {
             <button type="button" onClick={onOpenNewTransactionModal}>
                 Nova Transação
             </button>
-
-            
         </Content>
     </Container>
     )

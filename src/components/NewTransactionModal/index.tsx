@@ -1,36 +1,38 @@
 import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
-
-import { Container, TransactionTypeContainer, RadioBox } from "./styles";
-
+import { useTransactions } from '../../hooks/useTransactions';
 import closeImg from '../../assets/close.svg';
 import outcomeImg from '../../assets/outcome.svg';
 import incomeImg from '../../assets/income.svg';
-import { api } from '../../services/api';
-
+import { Container, TransactionTypeContainer, RadioBox } from "./styles";
 
 interface NewTransactionModalProps {
     isOpen: boolean;
     onRequestClose: () => void;
 }
 
-
 export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModalProps ) {
-    const [type, setType] = useState('income');
+    const {createTransaction} = useTransactions();
     
     //input state
     const [name, setName ] = useState('');
     const [price, setPrice] = useState(0);
+    const [type, setType] = useState('income');
     const [category, setCategory] = useState('');
 
-    
-    function handleCreateNewTransaction (event: FormEvent) {
+    async function handleCreateNewTransaction (event: FormEvent) {
         event.preventDefault();
 
         const transactionData = {name, price, type, category};
-        console.log(transactionData)
 
-        api.post('/transaction', transactionData)
+        await createTransaction(transactionData);
+        onRequestClose();
+
+        //reset input states
+        setName('');
+        setPrice(0);
+        setType('income');
+        setCategory('');
     }
 
     return(
